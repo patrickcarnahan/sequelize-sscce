@@ -22,8 +22,28 @@ module.exports = async function() {
             timestamps: false // For less clutter in the SSCCE
         }
     });
-    const Foo = sequelize.define('Foo', { name: DataTypes.TEXT });
-    await sequelize.sync();
-    log(await Foo.create({ name: 'foo' }));
-    expect(await Foo.count()).to.equal(1);
+  
+    var Table_Test = sequelize.define("test_table", {
+        Name: {
+            type: DataTypes.STRING,
+            primaryKey: true
+        },
+        Age: {
+            type: DataTypes.INTEGER
+        },
+        IsOnline: {
+            type: DataTypes.BOOLEAN,
+            primaryKey: true
+        }
+    }, {
+        freezeTableName: true,
+        timestamps : false
+    });
+  
+    db[schema].upsert({
+      "Name": "Charlie",
+      "Age": 24,
+      "IsOnline": false
+    });
 };
+
